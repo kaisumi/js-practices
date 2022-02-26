@@ -13,10 +13,11 @@ if (argv.m) {
   }
 }
 
-const y = firstDay.getFullYear(); const m = firstDay.getMonth()
-const lastDay = new Date(y, m + 1, 0)
+const year = firstDay.getFullYear()
+const month = firstDay.getMonth() + 1
+const lastDay = new Date(year, month, 0)
 
-console.log('      ' + ('  ' + (m + 1)).slice(-2) + '月 ' + y)
+console.log('      ' + ('  ' + month).slice(-2) + '月 ' + year)
 console.log('日 月 火 水 木 金 土')
 
 let week = ''
