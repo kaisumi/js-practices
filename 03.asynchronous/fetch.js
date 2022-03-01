@@ -1,4 +1,4 @@
-async function getHtml (url = '') {
+async function getHtml (url) {
   const response = await fetch(url)
   return response.text()
 }
