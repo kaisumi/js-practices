@@ -3,15 +3,15 @@ const fs = require('fs')
 
 class Helper {
   static readData () {
-    const id = Number(fs.readFileSync('data/id.txt', { encoding: 'utf8' })) + 1
     const list = []
-    for (let i = 1; i < id; i++) {
-      if (fs.existsSync(`data/memo${i}.txt`)) {
-        const memoLines =
-          fs.readFileSync(`data/memo${i}.txt`, { encoding: 'utf8' })
-            .toString().split('\n')
-        list.push({ name: memoLines[0], value: i })
-      }
+    const files = fs.readdirSync('data/')
+    for (let i in files) {
+      if (files[i] === 'id.txt') continue
+      const memoLines =
+        fs.readFileSync(`data/${files[i]}`, { encoding: 'utf8' })
+          .toString().split('\n')
+      const index = parseInt(files[i].replace(/memo(\d+).txt/, '$1'))
+      list.push({ name: memoLines[0], value: index })
     }
     return list
   }
