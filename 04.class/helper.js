@@ -3,7 +3,7 @@ const fs = require('fs')
 
 class Helper {
   static readData () {
-    const id = Number(fs.readFileSync('id.txt', { encoding: 'utf8' })) + 1
+    const id = Number(fs.readFileSync('data/id.txt', { encoding: 'utf8' })) + 1
     const list = []
     for (let i = 1; i < id; i++) {
       if (fs.existsSync(`data/memo${i}.txt`)) {

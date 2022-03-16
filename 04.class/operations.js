@@ -5,7 +5,7 @@ const helper = require('./helper')
 
 class Operations {
   static createMemo () {
-    const id = Number(fs.readFileSync('id.txt', { encoding: 'utf8' })) + 1
+    const id = Number(fs.readFileSync('data/id.txt', { encoding: 'utf8' })) + 1
     const reader = readline.createInterface({ input: process.stdin })
 
     reader.on('line', (line) => {
@@ -15,7 +15,7 @@ class Operations {
     })
 
     reader.on('close', () => {
-      fs.writeFile('id.txt', String(id), (err) => {
+      fs.writeFile('data/id.txt', String(id), (err) => {
         if (err) console.error(err)
       })
     })
@@ -29,21 +29,19 @@ class Operations {
     return true
   }
 
-  static readMemo () {
-    helper.setPrompt('see').run().then((answer) => {
-      const values = Object.values(answer)
-      console.log(fs.readFileSync(`data/memo${values[0]}.txt`, { encoding: 'utf8' }).toString())
-    })
+  static async readMemo () {
+    const answer = await helper.setPrompt('see').run()
+    const values = Object.values(answer)
+    console.log(fs.readFileSync(`data/memo${values[0]}.txt`, { encoding: 'utf8' }).toString())
     return true
   }
 
-  static deleteMemo () {
-    helper.setPrompt('delete').run().then((answer) => {
-      const values = Object.values(answer)
-      fs.unlink(`data/memo${values[0]}.txt`, (err) => {
-        if (err) console.error(err)
-        console.log('Memo deleted.')
-      })
+  static async deleteMemo () {
+    const answer = await helper.setPrompt('delete').run()
+    const values = Object.values(answer)
+    fs.unlink(`data/memo${values[0]}.txt`, (err) => {
+      if (err) console.error(err)
+      console.log('Memo deleted.')
     })
     return true
   }
